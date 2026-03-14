@@ -11,7 +11,7 @@ const router = express.Router()
 router.get('/get' , getAllBooks);
 
 // get single book from book store by id -> dynamic route
-router.get('get/:id' , getSingleBookByID)
+router.get('/get/:id' , getSingleBookByID)
 
 // Add new book to Book Store 
 router.post('/add' , addNewBook) 
@@ -20,7 +20,7 @@ router.post('/add' , addNewBook)
 router.put('/update/:id' , updateBook)
 
 // delete the book from book store  based on Id 
-router.delete('delete/:id' , deleteBook)
+router.delete('/delete/:id' , deleteBook)
 
 
 // Export all the routers 

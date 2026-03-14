@@ -17,7 +17,7 @@ const getAllBooks = async (req , res)=> {
       })
     }
    } catch (error) {
-    console.log(e);
+    console.log(error);
     res.status(500).json({
       success : false,
       message : "Something Went Wrong! Please try again sometime"
@@ -26,7 +26,28 @@ const getAllBooks = async (req , res)=> {
 }
 
 const getSingleBookByID = async (req , res)=> {
-  
+  try {
+    const getCurrentBookId = req.params.id;
+    const bookDetailsById = await Book.findById(getCurrentBookId);
+    if(!bookDetailsById){
+      return res.status(404).json({
+        // Not Found 
+        success : false ,
+        message : 'Book with the current Id is not Found! Please try with the different Id'
+      })
+    }
+    // Found 
+    res.status(200).json({
+      success : true,
+      data : bookDetailsById
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success : false,
+      message : "Something Went Wrong! Please try again sometime"
+    })
+  }
 }
 
 const addNewBook = async (req , res)=> {
