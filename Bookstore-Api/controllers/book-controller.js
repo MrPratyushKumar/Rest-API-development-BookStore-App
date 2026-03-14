@@ -76,7 +76,29 @@ const updateBook = async (req , res)=> {
 }
 
 const deleteBook = async (req , res)=> {
-  
+  try {
+    const getCurrentBookID = req.params.id;
+
+    const deletedBook = await Book.findByIdAndDelete(getCurrentBookID);
+    if(!deletedBook){
+      // Book is not found 
+      res.status(404).json({
+        success : false,
+        message : 'Book is not found with this ID '
+      })
+    }
+    // Book is Not Found 
+    res.status(200).json({
+      success : true,
+      data : deletedBook
+    })
+  } catch (error) {
+     console.log(error);
+     res.status(500).json({
+      success : false,
+      message : "Something Went Wrong! Please try again sometime"
+    })
+  }
 }
 
 // export all controller function
