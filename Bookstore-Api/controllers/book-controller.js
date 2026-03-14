@@ -2,7 +2,27 @@
 const Book = require('../models/book.js')
 
 const getAllBooks = async (req , res)=> {
-   
+   try {
+    const allBooks = await Book.find({});// this will return all the Books You have in BookStore 
+    if(allBooks.length > 0){
+      res.status(200).json({
+        success : true,
+        message : 'List of books fetched SuccessFully',
+        data : allBooks
+      })
+    } else{
+      res.status(404).json({
+        success : false,
+        message : "No Books Found in the Books Store"
+      })
+    }
+   } catch (error) {
+    console.log(e);
+    res.status(500).json({
+      success : false,
+      message : "Something Went Wrong! Please try again sometime"
+    })
+   }
 }
 
 const getSingleBookByID = async (req , res)=> {
@@ -21,7 +41,11 @@ const addNewBook = async (req , res)=> {
       })
     }
   } catch(e){
-     console.log(e)
+     console.log(e);
+     res.status(500).json({
+      success : false,
+      message : "Something Went Wrong! Please try again sometime"
+    })
   }
   
 }
