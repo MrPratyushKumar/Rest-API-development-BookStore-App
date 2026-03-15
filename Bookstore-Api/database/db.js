@@ -1,13 +1,16 @@
-const mongoose = require('mongoose')
+// database/db.js
+const mongoose = require('mongoose');
+require('dotenv').config(); // Load environment variables
 
-const connectDB = async ()=>{
+const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://pratyushpandey14300_db_user:pratyushpandey14300@cluster0.m46nn51.mongodb.net/")
-    console.log('mongodb is connected successfully  !')
+    // Use environment variable instead of hardcoded string
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("✅ MongoDB is connected successfully");
   } catch (error) {
-    console.error('Mongodb connection failed' , error)
-    process.exit(1)
+    console.error('❌ MongoDB connection failed:', error);
+    process.exit(1);
   }
-}
+};
 
 module.exports = connectDB;
